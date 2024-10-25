@@ -1,0 +1,18 @@
+{
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --outfile=dist/bundle.js",
+    "watch": "nodemon --watch src --exec \"npm run build\"",
+    "start": "node dist/bundle.js"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.1",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^7.28.0",
+    "@babylonjs/loaders": "^7.28.0",
+    "@types/three": "^0.167.2",
+    "babylonjs": "^7.28.0",
+    "three": "^0.167.1"
+  }
+}

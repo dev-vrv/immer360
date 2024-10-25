@@ -1,0 +1,9 @@
+env/
+staticfiles/
+media/*
+migrations/*
+!migrations/__init__.py
+*.sqlite3
+*.pyc
+*.pyo
+*.log

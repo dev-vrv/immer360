@@ -1,0 +1,41 @@
+# Use an official Python runtime as the base image
+FROM python:3.11
+
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    libgbm-dev \
+    libnss3 \
+    fonts-liberation \
+    libxss1 \
+    libgconf-2-4 \
+    libatk-bridge2.0-0 \
+    --no-install-recommends && \
+    rm -rf /var/lib/apt/lists/*
+
+# Установка переменных среды для Chromium (если используешь Selenium)
+ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROMEDRIVER=/usr/bin/chromedriver
+
+RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements file into the container
+COPY requirements.txt .
+
+# Install the project dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the project code into the container
+COPY . /app
+
+
+# Expose the ports that Nginx or Gunicorn will use
+EXPOSE 8000
+EXPOSE 443
+EXPOSE 80
+
+# Run start.sh
+CMD ["sh", "start.sh"]
